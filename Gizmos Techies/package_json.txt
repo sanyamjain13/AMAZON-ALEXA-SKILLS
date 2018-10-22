@@ -1,0 +1,39 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "gizmos techies",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "GetNewFactIntent",
+                    "slots": [],
+                    "samples": [
+                        "gizmos techies fact",
+                        "some gizmos techies facts",
+                        "tell me some gizmos techies fact",
+                        "tell me a gizmo techie fact",
+                        "give me some gizmos techies fact ",
+                        "tell me about some new devices",
+                        "tell me some new facts"
+                    ]
+                }
+            ],
+            "types": []
+        }
+    }
+}
