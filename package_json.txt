@@ -1,0 +1,34 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "abs workout",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "absworkout",
+                    "slots": [],
+                    "samples": [
+                        "core work out",
+                        "tell me some abs workout",
+                        "tell me some more",
+                        "six pack abs",
+                        "a month challenge",
+                        "workout for six pack abs"
+                    ]
+                }
+            ],
+            "types": []
+        }
+    }
+}
