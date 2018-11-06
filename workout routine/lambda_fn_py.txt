@@ -1,0 +1,124 @@
+def lambda_handler(event, context):
+    if event['request']['type'] == "LaunchRequest" :
+        return onLaunch(event['request'], event['session'])
+    elif event['request']['type'] == "IntentRequest" :
+        return onIntent(event['request'], event['session'])
+    elif event['request']['type'] == "SessionEndedRequest" :
+        return onSessionEnd(event['request'], event['session'])
+
+def onLaunch(launchRequest, session):
+    return welcomeuser()
+
+def onIntent(intentRequest, session):
+             
+    intent = intentRequest['intent']
+    intentName = intentRequest['intent']['name']
+    if intentName == "bodypart":
+        return bodyfunction(intent, session)
+    elif intentName == "repeatworkout":
+        return repeat(intent, session)
+    elif intentName == "AMAZON.HelpIntent":
+        return welcomeuser()
+    elif intentName == "AMAZON.CancelIntent" or intentName == "AMAZON.StopIntent":
+        return handleSessionEndRequest()
+    else:
+        raise ValueError("Invalid intent")
+
+def onSessionEnd(sessionEndedRequest, session):
+    print("on_session_ended requestId=" + sessionEndedRequest['requestId'] + ", sessionId=" + session['sessionId'])
+
+def welcomeuser():
+    sessionAttributes = {}
+    cardTitle = " Hello"
+    speechOutput =  "Hello , Welcome to Alexa Workout Routine! " \
+                    "You can know your workout routine for different body parts you want by asking,Tell me a workout routine for bodypart,where you have to specify your bodypart you want to train today"
+    repromptText =  "You can know your workout routine for different body parts you want just by saying Tell me a workout routine for bodypart"
+    shouldEndSession = False
+    
+    return buildResponse(sessionAttributes, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession))
+
+index=-1
+
+def bodyfunction(intent, session):
+    global index
+    x=" "
+    cardTitle = intent['name']
+    sessionAttributes = {}
+    if 'part' in intent['slots']:
+        c=intent['slots']['part']['value']
+        for i in range(len(arr)):
+            if c==arr[i][0]:
+                index=i
+                for j in range(len(arr[index][1])):
+                    x+=arr[index][1][j]+ " "
+        
+        speechOutput="4 sets with 10-12 reps each, YOUR ROUTINE FOR THE DAY IS- " +x
+        repromptText = "You can know your workout routine for different body parts you want just by saying Tell me a workout routine for bodypart"
+    else:
+        speechOutput = "tell me another body part"
+        repromptText = "tell me another body part"
+    shouldEndSession = False                   
+    return buildResponse(sessionAttributes, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession))
+    
+def repeat(intent, session):
+    global index
+    x=" "
+    cardTitle = intent['name']
+    sessionAttributes = {}
+    for j in range(len(arr[index][1])):
+        x+=arr[index][1][j]+ " "
+    speechOutput="4 sets with 10-12 reps each, YOUR ROUTINE FOR THE DAY IS- " +x
+    repromptText = "You can know interesting workout routine for different body parts by saying tell me a workout routine for bodypart"
+   
+    shouldEndSession = False                   
+    return buildResponse(sessionAttributes, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession))
+
+def handleSessionEndRequest():
+    cardTitle = "Session Ended"
+    speechOutput = "Thank you for using Alexa workout. " \
+                    "Have a great time! "
+    shouldEndSession = True
+    return buildResponse({}, buildSpeechletResponse(cardTitle, speechOutput, None, shouldEndSession))
+
+def buildSpeechletResponse(title, output, repromptTxt, endSession):
+    return {
+        'outputSpeech': {
+            'type': 'PlainText',
+            'text': output
+            },
+            
+        'card': {
+            'type': 'Simple',
+            'title': title,
+            'content': output
+            },
+            
+        'reprompt': {
+            'outputSpeech': {
+                'type': 'PlainText',
+                'text': repromptTxt
+                }
+            },
+        'shouldEndSession': endSession
+    }
+
+
+def buildResponse(sessionAttr , speechlet):
+    return {
+        'version': '1.0',
+        'sessionAttributes': sessionAttr,
+        'response': speechlet
+    }
+
+arr= [["biceps",["Incline Dumbbell Hammer Curl.","Incline Inner-Biceps Curl.","EZ-Bar Curl.","Dumbbell Biceps Curl.","and Hammer Curl."]],
+["chest",["Incline Dumbbell Press.","Incline Dumbbell Flyes.","Barbell Incline Bench Press Medium-Grip.","Decline Barbell Bench Press.","and pushups."]],
+["triceps",["Triangle Pushups.","Overhead Triceps Extension.","Bar Pushdown.","Close Grip Bench Press.","and kickback."]],
+["back",["Barbell Deadlift.","Wide-Grip Pull-Up.","Single-Arm Dumbbell Row.","Standing T-Bar Row.","and Single-Arm Smith Machine Row."]],
+["legs",["Barbell Squat.","Dumbbell Lunges.","Lying Leg Curls.","Leg Extensions.","and Standing Calf Raises."]],
+["thigh",["Cossack Squat.","Inner-Thigh Blaster.","Frog Bend.","Squeeze and Lift.","and Barbell Squat."]],
+["abs",["Ab Wheel Rollout.","planck 1 minute.","Leg raise.","weighted sit ups.","crunches.","Barbell Rollout.","and Medicine Ball Mountain Climber."]],
+["sides",["Side Plank Circles.","Leg Lifts.","Hip Dips.","Barbell Side Bend.","Plate Twist.","and Medicine Ball Full Twist."]]
+
+
+]
+
