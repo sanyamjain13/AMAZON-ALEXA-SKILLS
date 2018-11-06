@@ -1,0 +1,104 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "try workout",
+            "intents": [
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "bodypart",
+                    "slots": [
+                        {
+                            "name": "part",
+                            "type": "bodytype"
+                        }
+                    ],
+                    "samples": [
+                        "give me a routine for {part}",
+                        "tell me a workout routine for {part}",
+                        "give me a workout routine for {part} today"
+                    ]
+                },
+                {
+                    "name": "repeatworkout",
+                    "slots": [],
+                    "samples": [
+                        "repeat",
+                        "repeat my workout"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "bodytype",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "sides"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "abs",
+                                "synonyms": [
+                                    "abdomen"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "thigh"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "legs"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "back"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "triceps"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "chest"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "biceps",
+                                "synonyms": [
+                                    "arms,dola"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
